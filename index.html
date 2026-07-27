@@ -71,6 +71,10 @@
     background:#FCFDF3; color:var(--ink); font-weight:600;
   }
   input:focus{ outline:none; border-color:var(--brand); }
+  input[type=text]::placeholder, input[type=email]::placeholder{
+    color:#b7c199; font-weight:400; opacity:1;
+  }
+  input.invalid{ border-color:var(--danger); background:#FCF4EA; }
   label{ font-size:13px; font-weight:700; color:var(--ink-soft); display:block; margin:12px 0 6px; }
 
   .avatar-grid{ display:grid; grid-template-columns:repeat(5,1fr); gap:8px; margin-top:6px; }
@@ -428,7 +432,13 @@ function renderAvatar(){
     const okNick = nickInput.value.trim().length >= 2;
     const okName = firstNameInput.value.trim().length >= 1;
     const okEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailInput.value.trim());
-    startBtn.disabled = !(okNick && okName && okEmail && cPrivacy.checked);
+    // Only flag a field red once the user has typed something invalid,
+    // so empty fields at first sight aren't shown as errors.
+    nickInput.classList.toggle('invalid', nickInput.value.length > 0 && !okNick);
+    emailInput.classList.toggle('invalid', emailInput.value.length > 0 && !okEmail);
+    const allOk = okNick && okName && okEmail && cPrivacy.checked;
+    startBtn.disabled = !allOk;
+    return allOk;
   }
   nickInput.oninput = validate;
   firstNameInput.oninput = validate;
@@ -447,6 +457,13 @@ function renderAvatar(){
 
   document.getElementById('backStart').onclick = ()=>{ state.screen='start'; render(); };
   document.getElementById('startGame').onclick = ()=>{
+    // Hard guard: never start unless every field + required consent is valid.
+    if(!validate()){
+      [nickInput, firstNameInput, emailInput].forEach(el=>{
+        if(el.value.trim().length === 0) el.classList.add('invalid');
+      });
+      return;
+    }
     state.nick = nickInput.value.trim();
     state.firstName = firstNameInput.value.trim();
     state.email = emailInput.value.trim();
