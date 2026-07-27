@@ -402,17 +402,13 @@ function renderAvatar(){
       <div class="consent">
         <label class="consent-row">
           <input type="checkbox" id="consentPrivacy" ${state.consentPrivacy?'checked':''}>
-          <span>I agree that <em style="font-style:italic;">${CONFIG.COMPANY}</em> may store my e-mail and nickname to save my score and send me the recipe. <span class="req">*</span>
+          <span>I agree that <em style="font-style:italic;">${CONFIG.COMPANY}</em> may store my e-mail and nickname to save my score and display the recipe. <span class="req">*</span>
           <a href="${CONFIG.PRIVACY_URL}" target="_blank" rel="noopener">Privacy policy</a></span>
         </label>
         <label class="consent-row optin">
           <input type="checkbox" id="consentMarketing" ${state.consentMarketing?'checked':''}>
-          <span><b>Sign up for more great recipes</b> \uD83C\uDF4B \u2014 I give my consent to <em style="font-style:italic;">${CONFIG.COMPANY}</em> to send me recipes, cooking tips, and other marketing and promotional e-mails. I understand this is optional, is not required to play or to get this recipe, and that I can withdraw my consent at any time. <em>(optional)</em></span>
+          <span><b>Sign up for more great recipes</b> \uD83C\uDF4B \u2014 I give my consent to <em style="font-style:italic;">${CONFIG.COMPANY}</em> to send me recipes, cooking tips, news, offers, and other marketing and promotional e-mails. I understand that this consent is optional, is not required to play or to get this recipe, and that I can withdraw my consent or unsubscribe at any time by using the unsubscribe link in any marketing email or by direct email contact. I understand that my personal data is processed as described in <a href="${CONFIG.PRIVACY_URL}" target="_blank" rel="noopener">Privacy policy</a> </span>
         </label>
-        <p class="small-note" style="text-align:left; margin-top:8px;">
-          By checking the marketing box you agree to receive marketing e-mails from <em style="font-style:italic;">${CONFIG.COMPANY}</em>. You can unsubscribe at any time using the link in any e-mail or by contacting us, and every message includes our identity and postal address. Withdrawing consent does not affect processing carried out before withdrawal. We process your data as described in our
-          <a href="${CONFIG.PRIVACY_URL}" target="_blank" rel="noopener">Privacy policy</a>, and you may request access to or deletion of your data at any time.
-        </p>
       </div>
 
       <div class="btn-row">
