@@ -334,18 +334,18 @@ const COLLECT_AIR = [
 function ctaFor(score, won){
   if(won || score>=550) return {
     head: 'Chef\u2019s kiss! \uD83D\uDC69\u200D\uD83C\uDF73\uD83C\uDF4B',
-    body: 'You gathered every ingredient for a perfect lemon pasta. Sign up to get more great recipes delivered to your inbox.',
-    btn: 'Sign up for more recipes \u2192'
+    body: 'You gathered every ingredient for a perfect lemon pasta. Hungry for more? Explore our ebooks, courses, and full recipe collection \u2014 everything you need to cook like a pro.',
+    btn: 'Explore our cooking resources \u2192'
   };
   if(score>=250) return {
     head: 'Delicious run \u2014 the pasta\u2019s nearly perfect!',
     body: 'You caught most of the good stuff. Want more zesty, easy recipes like this one? Sign up and we\u2019ll send them over.',
-    btn: 'Sign up for more recipes \u2192'
+    btn: 'Explore our cooking resources \u2192'
   };
   return {
     head: 'A little more practice in the kitchen!',
     body: 'A few wrong ingredients slipped into the pot \u2014 but the full recipe is below. Sign up for more great recipes to keep cooking.',
-    btn: 'Sign up for more recipes \u2192'
+    btn: 'Explore our cooking resources \u2192'
   };
 }
 
@@ -432,8 +432,6 @@ function renderAvatar(){
     const okNick = nickInput.value.trim().length >= 2;
     const okName = firstNameInput.value.trim().length >= 1;
     const okEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailInput.value.trim());
-    // Only flag a field red once the user has typed something invalid,
-    // so empty fields at first sight aren't shown as errors.
     nickInput.classList.toggle('invalid', nickInput.value.length > 0 && !okNick);
     emailInput.classList.toggle('invalid', emailInput.value.length > 0 && !okEmail);
     const allOk = okNick && okName && okEmail && cPrivacy.checked;
@@ -457,7 +455,6 @@ function renderAvatar(){
 
   document.getElementById('backStart').onclick = ()=>{ state.screen='start'; render(); };
   document.getElementById('startGame').onclick = ()=>{
-    // Hard guard: never start unless every field + required consent is valid.
     if(!validate()){
       [nickInput, firstNameInput, emailInput].forEach(el=>{
         if(el.value.trim().length === 0) el.classList.add('invalid');
@@ -749,11 +746,10 @@ function renderResult(){
         <div class="cta-head">${cta.head}</div>
         <p class="cta-body">${cta.body}</p>
         <a class="btn cta-btn" href="${CONFIG.SIGNUP_URL}" target="_blank" rel="noopener">${cta.btn}</a>
-        <div class="cta-note">More great recipes \u00B7 free \u00B7 unsubscribe anytime</div>
       </div>
 
-      <div class="btn-row" style="width:100%;">
-        <button class="btn" id="playAgain" style="flex:1;">Cook again</button>
+      <div class="btn-row" style="width:100%; justify-content:center;">
+        <button class="btn" id="playAgain" style="flex:0 0 auto; min-width:150px;">Cook again</button>
       </div>
     </div>`;
   confettiBurst();
